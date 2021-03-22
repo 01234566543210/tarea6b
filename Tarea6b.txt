@@ -1,0 +1,112 @@
+EJERCICIO 1:
+
+#Que el numero que pone el usuario tiene que ser mayor que 1
+if [ $1 -ge 1 ]
+then
+
+#Que cree una carpeta por cada nombre del archivo nombres.txt
+for i in $(cat nombres.txt)
+do
+
+	mkdir $i
+
+	for o in `seq 1 $1` 
+	do
+
+		mkdir -p $i/personal$o
+	done
+done
+
+else
+
+echo "El numero debe ser mayor que 0 para poder crear alguna carpeta personal"
+
+fi
+
+EJERCICIO2:
+
+for i in $(awk '{print $2}' precipitaciones.txt)
+do
+
+suma=$((i+suma))
+
+done
+
+media=$((suma/10))
+
+echo "La media de precipitaciones es $media"
+
+
+
+EJERCICIO 3:
+
+
+contenido_dias=$(awk '{print $2}' precipitaciones.txt)
+maximo_dias=$(awk '{print $2}' precipitaciones.txt | wc -l)
+
+contador_dia=1
+
+for i in $contenido_dias
+do
+
+	if [ $i -eq 0 ]
+	then
+		calculo_dia=$(($contador_dia%7))
+		if [[ $calculo_dia -eq 1 ]]
+		then
+			nombre_dia="Lunes"
+		elif [[ $calculo_dia -eq 2 ]]
+		then
+			nombre_dia="Martes"
+		elif [[ $calculo_dia -eq 3 ]]
+		then
+			nombre_dia="Miercoles"
+		elif [[ $calculo_dia -eq 4 ]]
+		then
+			nombre_dia="Jueves"
+		elif [[ $calculo_dia -eq 5 ]]
+		then
+			nombre_dia="Viernes"
+		elif [[ $calculo_dia -eq 6 ]]
+		then
+			nombre_dia="Sabado"
+		elif [[ $calculo_dia -eq 0 ]]
+		then
+			nombre_dia="Domingo"
+		else
+			echo "ERROR"
+		fi
+
+		echo "El $nombre_dia dia $contador_dia no llovio. ($i)"
+	fi
+
+	contador_dia=$(($contador_dia+1))
+
+done
+
+EJERCICIO 4:
+
+numeros=$(cat numeros.txt)
+
+total_impares=0
+total_pares=0
+
+
+for n in $numeros
+do
+
+	if [[ $((n%2)) -eq 0 ]]
+	then
+		total_pares=$(($total_pares+1))
+		listado_pares="$listado_pares $n"
+		
+	else
+		total_impares=$(($total_impares+1))
+		listado_impares="$listado_impares $n"
+	fi
+done
+echo "Listado de Pares = $listado_pares"
+echo "Listado de Impares = $listado_impares"
+echo "Total Pares = $total_pares y total impares = $total_impares"
+
+
